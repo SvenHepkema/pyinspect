@@ -1,58 +1,9 @@
 import re
 
-class File:
-    def __init__(self):
-        pass#self.packages
-
-    def __str__():
-        return "File"
-
-class Class:
-    def __init__(self):
-        pass#self.variables
-
-    def __str__(self):
-        return "Class"
-
-class Method:
-    def __init__(self):
-        pass#self.packages
-
-    def __str__(self):
-        return "Method"
-
-class Node:
-    def __init__(self, type):
-        self.parent = None
-        self.type = type # Class/Function
-        self.children = []
-
-    
-    def add_child(self, node):
-        node.parent = self
-        self.children.append(node)
-
-    def add_sibling(self, node):
-        self.parent.add_child(node)
-
-    def return_parent(self, level):
-        parent = self.parent
-
-        for i in range(level - 1): # Cycle up to the desired level
-            if parent.parent is None:
-                return parent
-            else:
-                parent = parent.parent
-
-        return parent
-
-    def __str__(self):
-        result = self.type.__str__()
-
-        for child in self.children:
-            result += child.type.__str__()
-
-        return result
+from AutoDoc.Node.Node import Node 
+from AutoDoc.Node.Types.Class import Class
+from AutoDoc.Node.Types.File import File
+from AutoDoc.Node.Types.Method import Method
 
 def read_file(file_path):
     """ Reads a file into a list of lines. """

@@ -15,7 +15,16 @@
 # Customization in mind (Customizer delimiters and keywords that trigger the documentation, but also keep the setup open for expansion)
 # - config file
 
-import AutoDoc
+# Config file structure:
+# The syntax is completely customizable, the base syntax is a config itself.
+
+# Interactive shell:
+# Make it so that you can inspect python codebases in the terminal with autodoc, and maybe test functions live with test inputs
+
+# Extend support for documenting different file types
+
+
+from AutoDoc import AutoDoc
 
 documentation = AutoDoc.AutoDoc(r"C:\Users\svenh\Documents\Example")
 

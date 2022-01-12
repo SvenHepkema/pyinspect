@@ -3,7 +3,7 @@ import os
 import tkinter
 from tkinter import filedialog
 
-import PythonFile
+from AutoDoc.FileTypes import PythonFile
 
 def document_directory(directory_path):
         """ Documents every python file in directory. """
@@ -32,6 +32,7 @@ class AutoDoc:
 
     
     def scan_directory(self):
+        """ Scans and prints the contents of every python file in the directory. """
         for file in document_directory(self.directory_path):
             print(PythonFile.PythonFile.create_tree(file))
 
