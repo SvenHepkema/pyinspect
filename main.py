@@ -23,10 +23,19 @@
 
 # Extend support for documenting different file types
 
+# Make it more general so supporting different file type is easier
 
-from AutoDoc import AutoDoc
+# Make general customization functions such as catch('delimiter', text) instead of get_docstrings(text)
 
-documentation = AutoDoc.AutoDoc(r"C:\Users\svenh\Documents\Example")
+# Make some format options such as * --> \n and remove useless '\n' in comments
 
-#documentation.select_directory()
-documentation.scan_directory()
+import sys
+
+from AutoDoc.AutoDoc import AutoDoc
+
+#TODO: Set up all the cli arguments. -- Make a module for handling it?
+
+# TERMINAL-COMMAND: [1] target directory
+
+documentation = AutoDoc(sys.argv[1])
+documentation.scan()

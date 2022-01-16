@@ -1,9 +1,17 @@
+from pydoc import doc
+
+
 class Node:
-    def __init__(self, type):
+    def __init__(self, type, name):
         self.parent = None
         self.type = type # Class/Function
+        self.name = name
         self.children = []
+        self.doc_string = ''
 
+    
+    def add_doc_string(self, doc_string):
+        self.doc_string = doc_string
     
     def add_child(self, node):
         """ Adds a child node. """
@@ -25,11 +33,3 @@ class Node:
                 parent = parent.parent
 
         return parent
-
-    def __str__(self):
-        result = self.type.__str__()
-
-        for child in self.children:
-            result += child.type.__str__()
-
-        return result

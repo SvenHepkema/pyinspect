@@ -1,9 +1,6 @@
 import os
 
-import tkinter
-from tkinter import filedialog
-
-from AutoDoc.FileTypes import PythonFile
+from AutoDoc.FileTypes.PythonFile import PythonFile
 
 def document_directory(directory_path):
         """ Documents every python file in directory. """
@@ -20,20 +17,31 @@ def document_directory(directory_path):
                     
         return python_files
 
+
+def print_node_tree(node, indentation):
+    ''' Prints out the tree structure and a string containing information about each node. '''
+    text = node.type.tree_sign() + node.name + '\n\t- ' + node.doc_string
+
+    # Print the text and add appropriate indentation for multiple line text
+    for line in text.split('\n'):
+        if line.strip() != '' and len(line.strip()) > 1:
+            print('\t' * indentation + line)
+
+    # Print the text for each child
+    for child in node.children:
+        print_node_tree(child, indentation + 1)
+
+
+
 class AutoDoc:
-    def __init__(self, directory_path=None):
+    def __init__(self, directory_path):
+        #TODO: Insert check
         self.directory_path = directory_path
 
-
-    def select_directory(self):
-        """ Uses Windows file explorer to select a folder to scan for and document any python code found. """
-        tkinter.Tk().withdraw() # prevents an empty tkinter window from appearing
-        self.directory_path = tkinter.filedialog.askdirectory()
-
     
-    def scan_directory(self):
+    def scan(self):
         """ Scans and prints the contents of every python file in the directory. """
         for file in document_directory(self.directory_path):
-            print(PythonFile.PythonFile.create_tree(file))
+            print_node_tree(PythonFile.create_tree(file), 0)
 
     
