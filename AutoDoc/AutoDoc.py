@@ -1,21 +1,33 @@
 import os
 
 from AutoDoc.FileTypes.PythonFile import PythonFile
+from AutoDoc.Node.Node import Node
+from AutoDoc.Node.Types.Directory import FileDirectory
+from AutoDoc.Node.Types.File import File
 
 def document_directory(directory_path):
-        """ Documents every python file in directory. """
-        children = os.listdir(directory_path)
-        python_files = list()
+    """ Documents every python file in directory. """
+    directory_node = Node(FileDirectory, directory_path.split('/')[-1])
+    children = os.listdir(directory_path)
+    
+    for child in children: # Iterate over the children
+        child = os.path.join(directory_path, child) # Extend the path
         
-        for child in children: # Iterate over the children
-            child = os.path.join(directory_path, child) # Extend the path
-            
-            if os.path.isdir(child): # If child is directory, add python files in that directory
-                python_files = python_files + document_directory(child)
-            elif child[-3:] == ".py": # Elif that child is a python file, add the file to the list
-                python_files.append(child)
-                    
-        return python_files
+        if os.path.isdir(child): # If child is directory, add python files in that directory
+            child = document_directory(child)
+
+            if child:
+                directory_node.add_child(child)
+        elif child[-3:] == ".py": # Elif that child is a python file, add the file to the list
+            child = PythonFile.create_tree(child)
+            directory_node.add_child(child)
+
+    # Only add directory to structure if it contains a python file
+    for child in directory_node.children:
+        if child.type == File:
+            return directory_node
+                
+    return None
 
 
 def print_node_tree(node, indentation):
@@ -41,7 +53,5 @@ class AutoDoc:
     
     def scan(self):
         """ Scans and prints the contents of every python file in the directory. """
-        for file in document_directory(self.directory_path):
-            print_node_tree(PythonFile.create_tree(file), 0)
-
+        print_node_tree(document_directory(self.directory_path), 0)
     

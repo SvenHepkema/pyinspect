@@ -69,6 +69,7 @@ class PythonFile:
         lines = read_file(pythonfile_path)
 
         start_node = Node(File, pythonfile_path.split('/')[-1])
+
         last_node = start_node
         last_count = -1 # -1 So functions and classes with zero indentation are childs of File
 
