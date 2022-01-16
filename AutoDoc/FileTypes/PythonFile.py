@@ -5,6 +5,7 @@ from AutoDoc.Node.Node import Node
 from AutoDoc.Node.Types.Class import Class
 from AutoDoc.Node.Types.File import File
 from AutoDoc.Node.Types.Method import Method
+from AutoDoc.DocString import DocString
 
 def read_file(file_path):
     """ Reads a file into a list of lines. """
@@ -30,16 +31,7 @@ def convert_to_node(line):
         return Node(node_types[keyword], statement)
     else:
         return None
-
-class DocString():
-    def format():
-        ''' Formats the docstring. '''
-        # restructured text formatting?
-        # * --> \n-
-        # n* --> \n1-, \n2-
-        # Remove all \n and replace all spaces with a single space
-        # text = ' '.join(list(filter(None, text.replace('\n', ' ').split(' '))))
-
+    
 
 def get_docstrings(lines):
     """ Returns dictionary. Keys are line indexes of the class/method statements, value is the corresponding docstring."""
@@ -53,7 +45,7 @@ def get_docstrings(lines):
 
         # If it is a docstring
         if index % 2 == 1:
-            doc_strings[line_index - 1] = substring
+            doc_strings[line_index - 1] = DocString(substring)
 
         # Keep track of the line index
         for character in substring:
