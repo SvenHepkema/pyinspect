@@ -1,6 +1,5 @@
 class Class:
-    def __init__(self):
-        pass#self.variables
+    terminal_color = '\033[93m'
 
     def tree_sign(self):
         return "Class: "

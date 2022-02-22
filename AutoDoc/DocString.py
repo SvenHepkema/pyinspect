@@ -14,3 +14,9 @@ class DocString:
     
     def __str__(self):
         return self.string
+
+    def __add__(self, other):
+        return str(self) + other
+
+    def __radd__(self, other):
+        return other + str(self)

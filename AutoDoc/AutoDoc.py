@@ -4,6 +4,7 @@ from AutoDoc.FileTypes.PythonFile import PythonFile
 from AutoDoc.Node.Node import Node
 from AutoDoc.Node.Types.Directory import FileDirectory
 from AutoDoc.Node.Types.File import File
+from AutoDoc.DocString import DocString
 
 def document_directory(directory_path):
     """ Documents every python file in directory. """
@@ -32,7 +33,11 @@ def document_directory(directory_path):
 
 def print_node_tree(node, indentation):
     ''' Prints out the tree structure and a string containing information about each node. '''
-    text = node.type.tree_sign() + node.name + '\n\t- ' + node.doc_string
+
+    text = node.type.terminal_color + node.type.tree_sign() + node.name  + '\033[0m' # Print in specific colour and add endcode
+
+    if node.doc_string:
+        text += '\n\t-\033[94m ' + node.doc_string + '\033[0m'
 
     # Print the text and add appropriate indentation for multiple line text
     for line in text.split('\n'):
@@ -47,7 +52,6 @@ def print_node_tree(node, indentation):
 
 class AutoDoc:
     def __init__(self, directory_path):
-        #TODO: Insert check
         self.directory_path = directory_path
 
     

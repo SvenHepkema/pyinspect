@@ -29,6 +29,8 @@
 
 # Make some format options such as * --> \n and remove useless '\n' in comments
 
+# Make error mode: inspect all raises of possible errors
+
 import sys
 
 from AutoDoc.AutoDoc import AutoDoc

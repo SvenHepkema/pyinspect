@@ -1,6 +1,5 @@
 class FileDirectory:
-    def __init__(self):
-        pass#self.packages
+    terminal_color = '\033[91m'
 
     def tree_sign():
         return "Dir: "

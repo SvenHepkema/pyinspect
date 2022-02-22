@@ -7,10 +7,11 @@ class Node:
         self.type = type # Class/Function
         self.name = name
         self.children = []
-        self.doc_string = ''
+        self.doc_string = None
 
     
     def add_doc_string(self, doc_string):
+        #print(doc_string, type(doc_string))
         self.doc_string = doc_string
     
     def add_child(self, node):

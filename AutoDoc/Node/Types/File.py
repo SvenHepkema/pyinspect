@@ -1,6 +1,5 @@
 class File:
-    def __init__(self):
-        pass#self.packages
+    terminal_color = '\033[96m'
 
     def tree_sign():
         return "File: "
