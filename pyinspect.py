@@ -42,11 +42,11 @@ from AutoDoc.AutoDoc import AutoDoc
 # TERMINAL-COMMAND: [1] target directory
 
 if sys.argv[1] == "help":
-    readme = open("myfile.txt","r+") 
+    readme = open("README","r+") 
     print(readme.read())
     readme.close()
-
-documentation = AutoDoc(sys.argv)
+else:
+    documentation = AutoDoc(sys.argv)
 
 #TODO:
 # Be able to disable readout of for example vars/docstrings/class/file/directory and make option to select on specific class/file/subdir in target dir

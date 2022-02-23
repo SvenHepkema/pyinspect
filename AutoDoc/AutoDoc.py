@@ -97,7 +97,7 @@ class AutoDoc:
         self.directory_path = sys_arguments[1]
 
         # Only print from this subdirectory
-        if len(sys_arguments) == 2 or (sys_arguments[2][0] == '-' and len(sys_arguments[2][0]) == 2):
+        if len(sys_arguments) == 2 or (sys_arguments[2][0] == '-' and len(sys_arguments[2]) == 2):
             start_node = document_directory(self.directory_path)
         else:
             start_node = find_node_by_name([document_directory(self.directory_path)], sys_arguments[2])
