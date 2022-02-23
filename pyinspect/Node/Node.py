@@ -1,6 +1,3 @@
-from pydoc import doc
-
-
 class Node:
     def __init__(self, type, name):
         self.parent = None

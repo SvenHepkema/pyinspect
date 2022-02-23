@@ -35,7 +35,7 @@
 
 import sys
 
-from AutoDoc.AutoDoc import AutoDoc
+from pyinspect.printer import Printer
 
 #TODO: Set up all the cli arguments. -- Make a module for handling it?
 
@@ -46,7 +46,7 @@ if sys.argv[1] == "help":
     print(readme.read())
     readme.close()
 else:
-    documentation = AutoDoc(sys.argv)
+    documentation = Printer(sys.argv)
 
 #TODO:
 # Be able to disable readout of for example vars/docstrings/class/file/directory and make option to select on specific class/file/subdir in target dir

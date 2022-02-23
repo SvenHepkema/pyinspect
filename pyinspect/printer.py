@@ -2,14 +2,14 @@
 import os
 #from tracemalloc import start
 
-from AutoDoc.FileTypes.PythonFile import PythonFile
-from AutoDoc.Node.Node import Node
-from AutoDoc.Node.Types.Directory import FileDirectory
-from AutoDoc.Node.Types.Class import Class
-from AutoDoc.Node.Types.Method import Method
-from AutoDoc.Node.Types.Variable import Variable
-from AutoDoc.Node.Types.File import File
-from AutoDoc.DocString import DocString
+from pyinspect.FileTypes.PythonFile import PythonFile
+from pyinspect.Node.Node import Node
+from pyinspect.Node.Types.Directory import FileDirectory
+from pyinspect.Node.Types.Class import Class
+from pyinspect.Node.Types.Method import Method
+from pyinspect.Node.Types.Variable import Variable
+from pyinspect.Node.Types.File import File
+from pyinspect.DocString import DocString
 
 print_parameters =  {
     '-F': File,
@@ -91,7 +91,7 @@ def find_node_by_name(nodes, name):
     return find_node_by_name(children, name)
 
 
-class AutoDoc:
+class Printer:
     """ Scans and prints the contents of every python file in the directory. """
     def __init__(self, sys_arguments):
         self.directory_path = sys_arguments[1]

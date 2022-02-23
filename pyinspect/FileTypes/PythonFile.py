@@ -1,12 +1,11 @@
-from ast import get_docstring
 import re
 
-from AutoDoc.Node.Node import Node 
-from AutoDoc.Node.Types.Class import Class
-from AutoDoc.Node.Types.File import File
-from AutoDoc.Node.Types.Method import Method
-from AutoDoc.Node.Types.Variable import Variable
-from AutoDoc.DocString import DocString
+from pyinspect.Node.Node import Node 
+from pyinspect.Node.Types.Class import Class
+from pyinspect.Node.Types.File import File
+from pyinspect.Node.Types.Method import Method
+from pyinspect.Node.Types.Variable import Variable
+from pyinspect.DocString import DocString
 
 
 def read_file(file_path):
