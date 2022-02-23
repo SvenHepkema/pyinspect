@@ -41,3 +41,7 @@ from AutoDoc.AutoDoc import AutoDoc
 
 documentation = AutoDoc(sys.argv[1])
 documentation.scan()
+
+#TODO:
+# Be able to disable readout of for example vars/docstrings/class/file/directory and make option to select on specific class/file/subdir in target dir
+# EX: 'python main.py ~/projects/project baseclass -m -v' 

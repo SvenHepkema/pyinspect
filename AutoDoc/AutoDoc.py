@@ -31,7 +31,7 @@ def document_directory(directory_path):
     return None
 
 
-def print_node_tree(node, indentation):
+def print_node_tree(node, indentation=0):
     ''' Prints out the tree structure and a string containing information about each node. '''
 
     text = node.type.terminal_color + node.type.tree_sign() + node.name  + '\033[0m' # Print in specific colour and add endcode
@@ -57,5 +57,5 @@ class AutoDoc:
     
     def scan(self):
         """ Scans and prints the contents of every python file in the directory. """
-        print_node_tree(document_directory(self.directory_path), 0)
+        print_node_tree(document_directory(self.directory_path))
     

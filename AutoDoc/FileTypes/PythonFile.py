@@ -5,7 +5,9 @@ from AutoDoc.Node.Node import Node
 from AutoDoc.Node.Types.Class import Class
 from AutoDoc.Node.Types.File import File
 from AutoDoc.Node.Types.Method import Method
+from AutoDoc.Node.Types.Variable import Variable
 from AutoDoc.DocString import DocString
+
 
 def read_file(file_path):
     """ Reads a file into a list of lines. """
@@ -15,20 +17,25 @@ def read_file(file_path):
 
     return lines
 
-def convert_to_node(line):
+def convert_to_node(parent, line):
     """ Converts a python code line into a node. Returns none if there is no appropiate node type found. """
     node_types = {
         "class": Class(),
         "def": Method()
     }
 
-    words = line.lstrip().split(' ') # Extract the declaration statement from the line
+    words = line.lstrip().replace('.', ' ').split(' ') # Extract the declaration statement from the line
     keyword = words[0].lower()
     statement = ' '.join(words[1:]).split(':')[0]
 
     # Skip if it is not a declaration statement
     if keyword in node_types:
         return Node(node_types[keyword], statement)
+    elif '=' in line and line.lstrip()[0] != '#' and len(line.split('=')[0].strip().split(' ')) == 1: # If it is a stand alone, static variable or variable in a init method
+        if type(parent.type) is Method and parent.name.split('(')[0].strip() == "__init__": # Vars in init methods
+            return Node(Variable, line.split('=')[0].strip())
+        elif parent.type is Class or parent.type is File: # Vars in class or files
+            return Node(Variable, line.split('=')[0].strip())
     else:
         return None
     
@@ -63,13 +70,30 @@ class PythonFile:
         start_node = Node(File, pythonfile_path.split('/')[-1])
 
         last_node = start_node
+
         last_count = -1 # -1 So functions and classes with zero indentation are childs of File
 
         doc_strings = get_docstrings(lines)
 
         for line_index in range(len(lines)):
-            line = lines[line_index]
-            new_node = convert_to_node(line)
+            # Calculate tab indentation level       
+            line = lines[line_index]     
+            line = line.replace('    ', '\t') # Convert 4 spaces to 1 tab
+            
+            if len(line.strip()) > 0:
+                tab_count = re.search(r'[^\t]', line).start()
+            
+            # Get the parent and identify whether it is a child or sibling of the last analyzed node
+            parent = last_node
+
+            if tab_count == last_count:
+                parent = last_node.parent
+            elif tab_count < last_count:
+                parent = last_node.return_parent(last_count - tab_count + 1)
+            else:
+                parent = last_node
+            
+            new_node = convert_to_node(parent, line)
 
             if new_node is None:
                 continue
@@ -78,18 +102,8 @@ class PythonFile:
             if line_index in doc_strings:
                 new_node.add_doc_string(doc_strings[line_index])
 
-            # Calculate tab indentation level            
-            line = line.replace('    ', '\t') # Convert 4 spaces to 1 tab
-            tab_count = re.search(r'[^\t]', line).start()
-
             # Add the new tree to the node tree 
-            if tab_count == last_count:
-                last_node.add_sibling(new_node)
-            elif tab_count > last_count:
-                last_node.add_child(new_node)
-            else:
-                parent = last_node.return_parent(last_count - tab_count)
-                parent.add_sibling(new_node)
+            parent.add_child(new_node)
 
             # Save the data for analysis of next node
             last_count = tab_count

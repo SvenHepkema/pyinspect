@@ -1,0 +1,9 @@
+This program prints the file structure of all directories, python files within a target directory.
+For every python file it prints out every class, method and stand alone or instance specific variable.
+It also prinst out doc strings for classes and methods.
+
+The program works by calling it with
+'python main.py' and then providing an absolute adress as the first parameter to the directory you would like to inspect all python files of.
+
+Example:
+'python main.py ~/projects/directory-with-python-files'

@@ -19,10 +19,6 @@ class Node:
         node.parent = self
         self.children.append(node)
 
-    def add_sibling(self, node):
-        """ Adds a child to the parent node. """
-        self.parent.add_child(node)
-
     def return_parent(self, level):
         """ Goes up n levels (specified in the parameter) and returns the parent node. """
         parent = self.parent
