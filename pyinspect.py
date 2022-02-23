@@ -1,3 +1,5 @@
+#! /usr/bin/env Python
+
 # Targets: own inspection module
 # Give option to give hints in comments for compilation of comments in the documentation.
 # Such as #[1] or #[*] for summation, or #[">] #[<"] to quote comment
@@ -39,8 +41,12 @@ from AutoDoc.AutoDoc import AutoDoc
 
 # TERMINAL-COMMAND: [1] target directory
 
-documentation = AutoDoc(sys.argv[1])
-documentation.scan()
+if sys.argv[1] == "help":
+    readme = open("myfile.txt","r+") 
+    print(readme.read())
+    readme.close()
+
+documentation = AutoDoc(sys.argv)
 
 #TODO:
 # Be able to disable readout of for example vars/docstrings/class/file/directory and make option to select on specific class/file/subdir in target dir

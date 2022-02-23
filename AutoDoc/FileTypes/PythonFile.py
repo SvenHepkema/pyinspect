@@ -20,8 +20,8 @@ def read_file(file_path):
 def convert_to_node(parent, line):
     """ Converts a python code line into a node. Returns none if there is no appropiate node type found. """
     node_types = {
-        "class": Class(),
-        "def": Method()
+        "class": Class,
+        "def": Method
     }
 
     words = line.lstrip().replace('.', ' ').split(' ') # Extract the declaration statement from the line
@@ -32,7 +32,7 @@ def convert_to_node(parent, line):
     if keyword in node_types:
         return Node(node_types[keyword], statement)
     elif '=' in line and line.lstrip()[0] != '#' and len(line.split('=')[0].strip().split(' ')) == 1: # If it is a stand alone, static variable or variable in a init method
-        if type(parent.type) is Method and parent.name.split('(')[0].strip() == "__init__": # Vars in init methods
+        if parent.type is Method and parent.name.split('(')[0].strip() == "__init__": # Vars in init methods
             return Node(Variable, line.split('=')[0].strip())
         elif parent.type is Class or parent.type is File: # Vars in class or files
             return Node(Variable, line.split('=')[0].strip())

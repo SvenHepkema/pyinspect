@@ -1,9 +1,28 @@
 This program prints the file structure of all directories, python files within a target directory.
 For every python file it prints out every class, method and stand alone or instance specific variable.
-It also prinst out doc strings for classes and methods.
+It also prints out doc strings for classes and methods.
 
 The program works by calling it with
-'python main.py' and then providing an absolute adress as the first parameter to the directory you would like to inspect all python files of.
+'python main.py' and then providing the system path that you want to analyze
 
 Example:
-'python main.py ~/projects/directory-with-python-files'
+'python main.py ~/projects'  --> Analyzes the file structure and python files in the folder projects.
+
+An optional second argument is a name. If you provide the name only the subtree of the node with that name will be displayed
+
+Example:
+'python main.py ~/projects Node'  Inspects the subtree of nodes of the Node class if it is found within the target directory.
+
+
+Optional parameters:
+Entering any of these parameters in any combination disables the displaying of nodes with that node type. Any subtrees from nodes
+that are not displayed will also not be displayed.
+-F : File,
+-C : Class,
+-M : Method,
+-V : Variable,
+-D : DocString,
+
+Example:
+'python main.py ~/projects Node.py -M' Displays the subtree of the Node.py file, but does not display any methods, and thus also not any
+variables within methods or docstrings attached to methods.
